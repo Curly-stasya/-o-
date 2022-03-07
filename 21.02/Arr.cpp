@@ -1,15 +1,20 @@
 #include<iostream>
 #include"Arr.h"
-#define T int
 
-
-T Arr:: getElement(size_t index) const { //получение элемента массива
-    if (index < m_size) return *(m_storage + index);
+//template <typename T> T& operator [] (ArrT<T>, size_t index) {
+//    if (index < ArrT::m_size) return m_storage[index];
+//    else return m_storage[0];
+//}
+template <typename T>const T& ArrT<T>::getElement (size_t index) {
+    if (index < m_size) return m_storage[index];
     else return m_storage[0];
 }
-//*(m_storage + index);
+template <typename T>T ArrT<T>::getElement(size_t index) const {
+    if (index < m_size) return m_storage[index];
+    else return m_storage[0];
+}
 
-void Arr:: addElement(T new_element) {// добавление элемента в массив
+template <typename T>void ArrT<T>:: addElement(T new_element) {
     size_t new_size = m_size + 1;
     T* new_array = new T[new_size];
     for (int i = 0; i < m_size; ++i) {
@@ -19,16 +24,16 @@ void Arr:: addElement(T new_element) {// добавление элемента в массив
     delete[] m_storage;
     m_storage = new_array;
     ++m_size;
-}
+} 
 
-void Arr::print() {
+template <typename T>void ArrT<T>::print() const{
     for (int i = 0; i < getSize(); i++) {
         std::cout << m_storage[i] << ' ';
     }
     std::cout <<"\n"<< m_size << std::endl;
 }
 
-void Arr::resize(size_t new_size) {
+template <typename T>void ArrT<T>::resize(size_t new_size) {
     T* new_array = new T[new_size];
     if (new_size<=m_size){
         for (size_t i = 0; i < new_size; i++) {
@@ -45,7 +50,7 @@ void Arr::resize(size_t new_size) {
     m_size = new_size;
 }
 
-T* Arr:: removeElement(size_t del_index) {//удаление элемента
+template <typename T>T* ArrT<T>:: removeElement(size_t del_index) {
     if (del_index < m_size) {
         T* new_array = new T[m_size - 1];
         for (size_t i = 0; i < del_index; i++) {
@@ -61,5 +66,3 @@ T* Arr:: removeElement(size_t del_index) {//удаление элемента
     else std::cout << "Error" << std::endl;
     return m_storage;
 }
-
-    
