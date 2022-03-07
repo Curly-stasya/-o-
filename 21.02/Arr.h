@@ -1,22 +1,27 @@
 #pragma once
 #include <iostream>
-#define T int
 
-class Arr {
+template<typename T>
+
+class ArrT {
 public:
-    Arr(T* store = nullptr, size_t size = 0) :m_storage(store), m_size(size) {}
+    ArrT(T* store = nullptr, size_t size = 0) :m_storage(store), m_size(size) {}
 
-    Arr(const Arr& X): m_storage(X.m_storage), m_size(X.m_size) {}
+    ArrT(const ArrT& X): m_storage (X.m_storage), m_size(X.m_size) {}
 
-    ~Arr(){}
+    ~ArrT(){}
+
+   /* template <typename T> T& operator [] (ArrT<T>, size_t index)*/
+
+    //const T& getElement(size_t);
+
+    T getElement(size_t) const;
 
     size_t getSize() const { return m_size; };
 
-    T getElement(size_t)const;
-
     void addElement(T);
 
-    void print();
+    void print() const ;
 
     void resize(size_t);
 
